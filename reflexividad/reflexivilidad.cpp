@@ -3,6 +3,8 @@
 #include <utility>
 #include <string>
 #include <map>
+
+/*  para garantizar 60 frames por segundo se necesita recalcular cada ecena en menos de 16 ms  */
 using namespace std;
 
 typedef map<string, map<string,int>*> adyacencia; //<elemento, vertices>
@@ -97,7 +99,7 @@ bool transitividad()
         tmp_size = b->size();
         for(int j=0; j<tmp_size; j++)
         {
-            	map<string, map<string,int>*>::iterator q = ady.find(b->at(j));
+            	//map<string, map<string,int>*>::iterator q = ady.find(b->at(j));
             
         }
 	}
