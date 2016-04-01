@@ -78,6 +78,25 @@ bool antisimetria()
 	}
 	return true;
 }
+/*
+(a,b) y (b, c) -> (a,c)
+1- obtener todos los elementos b que se relacionan con a 
+2- obtener todos los elementos c que se relacionan con b allado en 1-
+3- verificar si (a,c) para cada c allado en 2 se cumple (a,c) 
+
+*/
+bool transitividad()
+{
+    map<string,int>* b;
+	vector< map<string,int>*> c;
+	int elementos_size = elementos.size();
+	for(int i=0; i<elementos_size; i++){
+	   	map<string, map<string,int>*>::iterator p = ady.find(elementos.at(i));
+        b=p->second;
+         for (auto& x: b) {
+             }
+	}
+}
 void ingresar_elementos_relaciones()
 {
 	char tmp_c[256], tmp_c2[256];
