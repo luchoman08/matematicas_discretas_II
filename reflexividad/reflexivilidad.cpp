@@ -89,12 +89,17 @@ bool transitividad()
 {
     map<string,int>* b;
 	vector< map<string,int>*> c;
-	int elementos_size = elementos.size();
+	map<string,int>* tmp;
+	int elementos_size = elementos.size(), tmp_size =0;
 	for(int i=0; i<elementos_size; i++){
 	   	map<string, map<string,int>*>::iterator p = ady.find(elementos.at(i));
         b=p->second;
-         for (auto& x: b) {
-             }
+        tmp_size = b->size();
+        for(int j=0; j<tmp_size; j++)
+        {
+            	map<string, map<string,int>*>::iterator q = ady.find(b->at(j));
+            
+        }
 	}
 }
 void ingresar_elementos_relaciones()
