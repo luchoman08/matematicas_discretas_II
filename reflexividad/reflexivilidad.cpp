@@ -10,7 +10,7 @@ typedef pair<string, map<string,int>*> im;
 typedef pair<string, int> si;
 FILE * pFile;
 adyacencia  ady;
-vector<pair<string, string>> relaciones;
+vector<pair<string, string> > relaciones;
 vector<string> elementos;
 int n_elementos =0;
 /*
@@ -60,12 +60,21 @@ bool reflexividad()
 	}
 	return true;
 }
-bool transitividad()
+bool simetria()
 {
 	int size_relaciones = relaciones.size();
 	for(int i = 0; i < size_relaciones; i++)
 	{
 		if(!adyaccencia_a_b(relaciones.at(i).second, relaciones.at(i).first)) return false;
+	}
+	return true;
+}
+bool antisimetria()
+{
+	int size_relaciones = relaciones.size();
+	for(int i = 0; i < size_relaciones; i++)
+	{
+		if(adyaccencia_a_b(relaciones.at(i).second, relaciones.at(i).first)&&relaciones.at(i).first.compare(relaciones.at(i).second)) return false;
 	}
 	return true;
 }
@@ -100,7 +109,8 @@ int main (int args, char** argv){
     rewind (pFile);
 	ingresar_elementos_relaciones();
 	printf("reflexividad: %d \n", reflexividad());
-	printf("transitividad %d \n", transitividad());
+	printf("simetria: %d \n", simetria());
+	printf("antisimetria: %d \n", antisimetria());
 	fclose (pFile);
 	return 0;
 }
