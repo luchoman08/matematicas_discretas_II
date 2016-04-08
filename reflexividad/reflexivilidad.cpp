@@ -8,7 +8,7 @@
 /*  para garantizar 60 frames por segundo se necesita recalcular cada ecena en menos de 16 ms  */
 using namespace std;
 
-typedef map<string, map<string,int>*> adyacencia; //<elemento, vertices>
+typedef map<string, vector<string> > adyacencia; //<elemento, vertices>
 typedef pair<string, map<string,int>*> im;
 typedef pair<string, int> si;
 FILE * pFile;
@@ -23,17 +23,17 @@ int n_elementos =0;
 
 int adicionar_tupla(string a, string b)
 {
-	map<string, map<string,int>*>::iterator p = ady.find(a);
+    adyacencia::iterator p = ady.find(a);
 	if(p == ady.end())
 	{
-		map<string,int>* s = new map<string,int> ;
-		s->insert(si(b, 0));
+		vector<string> s;
+		s.push_back(b);
 		ady.insert(im(a, s));
 		return 0;
 	}
 	else
 	{
-		p->second->insert(si(b,0));
+		p->second.pushback(b);
 		return 1;
 	}
 }
@@ -61,24 +61,24 @@ bool reflexividad()
 	}
 	return true;
 }
-bool simetria()
-{
-	int size_relaciones = relaciones.size();
-	for(int i = 0; i < size_relaciones; i++)
-	{
-		if(!adyaccencia_a_b(relaciones.at(i).second, relaciones.at(i).first)) return false;
-	}
-	return true;
-}
-bool antisimetria()
-{
-	int size_relaciones = relaciones.size();
-	for(int i = 0; i < size_relaciones; i++)
-	{
-		if(adyaccencia_a_b(relaciones.at(i).second, relaciones.at(i).first)&&relaciones.at(i).first.compare(relaciones.at(i).second)) return false;
-	}
-	return true;
-}
+//bool simetria()
+//{
+//	int size_relaciones = relaciones.size();
+//	for(int i = 0; i < size_relaciones; i++)
+//	{
+//		if(!adyaccencia_a_b(relaciones.at(i).second, relaciones.at(i).first)) return false;
+//	}
+//	return true;
+//}
+//bool antisimetria()
+//{
+//	int size_relaciones = relaciones.size();
+//	for(int i = 0; i < size_relaciones; i++)
+//	{
+//		if(adyaccencia_a_b(relaciones.at(i).second, relaciones.at(i).first)&&relaciones.at(i).first.compare(relaciones.at(i).second)) return false;
+//	}
+//	return true;
+//}
 /*
 (a,b) y (b, c) -> (a,c)
 1- obtener todos los elementos b que se relacionan con a 
@@ -86,45 +86,45 @@ bool antisimetria()
 3- verificar si (a,c) para cada c allado en 2 se cumple (a,c) 
 
 */
-bool transitividad()
-{
-    map<string,int>* b;
-    map<string,int>::iterator q ;
-	vector< map<string,int>*> c;
-	int relaciones_size = relaciones.size();
-	
-	for(int i=0; i<relaciones_size; i++){
-	   	map<string, map<string,int>*>::iterator p = ady.find(relaciones.at(i).first);
-        b=p->second;
-         
-       	std::map<string,int>::const_iterator
-    mit=b->begin(),
-    mend=b->end();
+//bool transitividad()
+//{
+ //   map<string,int>* b;
+ //   map<string,int>::iterator q ;
+//	vector< map<string,int>*> c;
+//	int relaciones_size = relaciones.size();
+//	
+//	for(int i=0; i<relaciones_size; i++){
+//	   	map<string, map<string,int>*>::iterator p = ady.find(relaciones.at(i).first);
+ //       b=p->second;
+ //        
+  //     	std::map<string,int>::const_iterator
+ //   mit=b->begin(),
+ //   mend=b->end();
     
-  for(;mit!=mend;++mit) 
-             {
-				 printf("b tiene %s", mit->first.c_str());
-				 c.push_back(ady.find(mit->first)->second);
-			 }
+ // for(;mit!=mend;++mit) 
+ //            {
+	//			 printf("b tiene %s", mit->first.c_str());
+	//			 c.push_back(ady.find(mit->first)->second);
+	//		 }
 			 
-          for (int j = 0; j<c.size(); j++)
-             {
-				 std::map<string,int>::const_iterator
-    mit2 (c.at(j)->begin()),
-    mend2(c.at(j)->end());
-  for(;mit2!=mend2;++mit2) 
+   //       for (int j = 0; j<c.size(); j++)
+    //         {
+//				 std::map<string,int>::const_iterator
+   // mit2 (c.at(j)->begin()),
+  //  mend2(c.at(j)->end());
+ // for(;mit2!=mend2;++mit2) 
 				
-             {
-				if(!adyaccencia_a_b(relaciones.at(i).first, q->first)) return false;
+     //        {
+	//			if(!adyaccencia_a_b(relaciones.at(i).first, q->first)) return false;
 				  
-			 }
-				  
-			 }
-              c.clear();
+	//		 }
+	//			  
+	//		 }
+     //         c.clear();
          
-	}
-	return true;
-}
+//	}
+//	return true;
+//}
 void ingresar_elementos_relaciones()
 {
 	char tmp_c[256], tmp_c2[256];
@@ -156,9 +156,9 @@ int main (int args, char** argv){
     rewind (pFile);
 	ingresar_elementos_relaciones();
 	printf("reflexividad: %d \n", reflexividad());
-	printf("simetria: %d \n", simetria());
-	printf("antisimetria: %d \n", antisimetria());
-	printf("transitividad: %d \n", transitividad());
+//	printf("simetria: %d \n", simetria());
+//	printf("antisimetria: %d \n", antisimetria());
+//	printf("transitividad: %d \n", transitividad());
 	fclose (pFile);
 	return 0;
 }
