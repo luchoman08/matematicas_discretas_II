@@ -96,17 +96,26 @@ bool transitividad()
 	for(int i=0; i<relaciones_size; i++){
 	   	map<string, map<string,int>*>::iterator p = ady.find(relaciones.at(i).first);
         b=p->second;
-       	 for (q = b->begin(); q!=b->end(); q++)
+         
+       	std::map<string,int>::const_iterator
+    mit=b->begin(),
+    mend=b->end();
+    
+  for(;mit!=mend;++mit) 
              {
-				 printf("b resultante %d\n", b->size());
-				 c.push_back(ady.find(q->first)->second);
+				 printf("b tiene %s", mit->first.c_str());
+				 c.push_back(ady.find(mit->first)->second);
 			 }
 			 
           for (int j = 0; j<c.size(); j++)
              {
-				 for (q = c.at(j)->begin(); q!=c.at(j)->end(); q++)
+				 std::map<string,int>::const_iterator
+    mit2 (c.at(j)->begin()),
+    mend2(c.at(j)->end());
+  for(;mit2!=mend2;++mit2) 
+				
              {
-				//if(!adyaccencia_a_b(relaciones.at(i).first, q->first)) return false;
+				if(!adyaccencia_a_b(relaciones.at(i).first, q->first)) return false;
 				  
 			 }
 				  
