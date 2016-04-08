@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <vector>
 #include <utility>
 #include <string>
@@ -19,8 +20,6 @@ int n_elementos =0;
  * 			programa que permite saber si un conjunto cumple con la propiedad reflexiva o no
  * 
 */
-
-
 
 int adicionar_tupla(string a, string b)
 {
@@ -90,19 +89,32 @@ bool antisimetria()
 bool transitividad()
 {
     map<string,int>* b;
+    map<string,int>::iterator q ;
 	vector< map<string,int>*> c;
-	map<string,int>* tmp;
-	int elementos_size = elementos.size(), tmp_size =0;
-	for(int i=0; i<elementos_size; i++){
-	   	map<string, map<string,int>*>::iterator p = ady.find(elementos.at(i));
+	int relaciones_size = relaciones.size();
+	
+	for(int i=0; i<relaciones_size; i++){
+	   	map<string, map<string,int>*>::iterator p = ady.find(relaciones.at(i).first);
         b=p->second;
-        tmp_size = b->size();
-        for(int j=0; j<tmp_size; j++)
-        {
-            	//map<string, map<string,int>*>::iterator q = ady.find(b->at(j));
-            
-        }
+       	 for (q = b->begin(); q!=b->end(); q++)
+             {
+				 printf("b resultante %d\n", b->size());
+				 c.push_back(ady.find(q->first)->second);
+			 }
+			 
+          for (int j = 0; j<c.size(); j++)
+             {
+				 for (q = c.at(j)->begin(); q!=c.at(j)->end(); q++)
+             {
+				//if(!adyaccencia_a_b(relaciones.at(i).first, q->first)) return false;
+				  
+			 }
+				  
+			 }
+              c.clear();
+         
 	}
+	return true;
 }
 void ingresar_elementos_relaciones()
 {
@@ -137,6 +149,7 @@ int main (int args, char** argv){
 	printf("reflexividad: %d \n", reflexividad());
 	printf("simetria: %d \n", simetria());
 	printf("antisimetria: %d \n", antisimetria());
+	printf("transitividad: %d \n", transitividad());
 	fclose (pFile);
 	return 0;
 }
